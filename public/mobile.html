@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+  <!--kugoubegin-->
+
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title>酷狗直播</title>
+    <meta
+      itemprop="description"
+      name="description"
+      content="唱歌最好听的直播平台。看音乐直播，就上酷狗直播"
+    />
+    <script
+      crossorigin="anonymous"
+      src="https://s4fx.kgimg.com/pub/mobile/common/js/app/monitor/index_ca295ed.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://s4fx.kgimg.com/pub/mobile/sharePage/normalRoom/views/index.html_aio_9e6ee0a.css"
+    />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="video-box">
+        <div class="mvloading" style="display: none"></div>
+        <div class="live-info"><span class="viewCount"></span>人正在观看</div>
+        <video
+          id="videoPlayer"
+          autoplay="true"
+          x5-video-player-type="h5"
+          x-webkit-airplay="allow"
+          playsinline
+          webkit-playsinline="true"
+          style="height:478px"
+        ></video>
+        <div class="imgPlay">
+          <img
+            src="https://s4fx.kgimg.com/pub/images/_9e04c1a.png"
+            class="playIcon"
+          />
+          <img
+            src="https://s4fx.kgimg.com/pub/images/_6dc9c0e.png"
+            class="poster"
+          />
+        </div>
+
+        <div class="mask timeout prio-hide">
+          <div class="wrap">
+            <p>
+              想继续看这个精彩表演吗？下载酷狗直播免费长期围观，还能直接和艺人聊天哦！
+            </p>
+            <a
+              href="http://a.app.qq.com/o/simple.jsp?pkgname=com.kugou.fanxing"
+              class="btn"
+              >立即下载</a
+            >
+          </div>
+        </div>
+        <div class="mask ended">
+          <div class="mo"></div>
+          <div class="wrap">
+            <p class="head">艺人休息中</p>
+            <p class="text">上次直播时间:<span>2小时前</span></p>
+            <img
+              src="https://s4fx.kgimg.com/pub/images/_6dc9c0e.png"
+              class="roomAvatar"
+            />
+            <div class="roomInfo">
+              <p class="roomName">喵咪大教主</p>
+              <p class="roomId">房号:<span>0103000</span></p>
+            </div>
+            <div id="btnRecommend" class="btnList">
+              <div class="shareBtn">分享</div>
+              <div class="followBtn">+关注</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="info-box"></div>
+      <div class="chatContent">
+        <ul class="chatList"></ul>
+      </div>
+      <div class="chatInput">
+        <div class="chatInputDiv">
+          <p>和大家聊天吧~</p>
+        </div>
+        <img
+          src="https://s4fx.kgimg.com/pub/images/_717e415.png"
+          class="shareBtn"
+        />
+        <img
+          src="https://s4fx.kgimg.com/pub/images/_8f8d545.png"
+          class="singBtn"
+        />
+        <img
+          src="https://s4fx.kgimg.com/pub/images/_c40cb54.png"
+          class="giftBtn"
+        />
+      </div>
+      <div class="down-tip">
+        <div class="content">
+          <div class="close-btn cancel"></div>
+          <div class="downText">
+            <p class="downLoadText">下载酷狗直播</p>
+            <p>一个真正唱歌的直播平台</p>
+          </div>
+          <div class="down-layer">
+            <div class="down-btn download">立刻下载</div>
+          </div>
+        </div>
+      </div>
+      <div class="recommend-list">
+        <div id="recommendTitle" class="header">
+          <p>热门直播</p>
+        </div>
+        <ul id="recommendList"></ul>
+      </div>
+      <a href="javascript:;" class="download-box fanxingBanner"></a>
+      <div id="weixin-share"></div>
+      <div class="lead-layer"></div>
+    </div>
+    <script
+      crossorigin="anonymous"
+      src="https://s4fx.kgimg.com/pub/mobile/common/js/sea_da2c3fa.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      type="text/javascript"
+      src="https://s4fx.kgimg.com/pub/mobile/sharePage/normalRoom/views/index.html_aio_d1a3471.js"
+    ></script>
+    <script>
+      location.href =
+        "//mfanxing.kugou.com/staticPub/rmobile/sharePage/normalRoom/views/index.html" +
+        location.search;
+      ("use strict");
+      var phoneWidth = parseInt(window.screen.width),
+        phoneScale = phoneWidth / 640,
+        ua = navigator.userAgent,
+        request = function(a) {
+          for (
+            var c,
+              h = decodeURI(location.href),
+              g = h.substring(h.indexOf("?") + 1, h.length).split("&"),
+              i = 0;
+            i < g.length;
+            i++
+          ) {
+            var v = g[i].split("=")[0],
+              y = g[i].split("=")[1];
+            v === a && (c = y);
+          }
+          return "undefined" == typeof c ? "" : c;
+        },
+        fromType = request("fromType"),
+        roomId = request("roomId"),
+        streamType = request("streamType"),
+        liveMode = request("liveMode"),
+        isPk = request("isPk");
+      if (
+        (ua.match(/(Android);?[\s\/]+([\d.]+)?/) ||
+        ua.match(/(OS)\s([\d_]+)/) ||
+        !location.href.match(/roomId=[\d]+/i)
+          ? /MicroMessenger/.test(ua) ||
+            /QQ\//.test(ua) ||
+            /Weibo/.test(ua) ||
+            /TXMicroBlog/.test(ua) ||
+            ("kugou" == fromType
+              ? roomId &&
+                setTimeout(function() {
+                  location.href =
+                    "kugouURL://start.fanxing?type=0&enterroomsource=300&roomid=" +
+                    roomId;
+                }, 1500)
+              : roomId &&
+                setTimeout(function() {
+                  location.href =
+                    "fanxing://fanxing.kugou.com/?action=openLive&roomId=" +
+                    roomId +
+                    "&streamType=" +
+                    streamType +
+                    "&liveMode=" +
+                    liveMode +
+                    "&isPk=" +
+                    isPk;
+                }, 1500))
+          : (location.href =
+              "http://fanxing.kugou.com/" +
+              location.search.replace(/.*roomId\=([0-9]{0,}).*/i, "$1")),
+        /Android (\d+\.\d+)/.test(ua))
+      ) {
+        var version = parseFloat(RegExp.$1);
+        document.write(
+          version > 2.3
+            ? '<meta name="viewport" content="width=640, minimum-scale = ' +
+                phoneScale +
+                ", maximum-scale = " +
+                phoneScale +
+                ', target-densitydpi=device-dpi">'
+            : '<meta name="viewport" content="width=640, target-densitydpi=device-dpi">'
+        );
+      } else
+        document.write(
+          '<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">'
+        );
+      !(function(a, c) {
+        var v = a.documentElement,
+          y = "orientationchange" in window ? "orientationchange" : "resize",
+          w = function() {
+            var a = v.clientWidth;
+            a &&
+              ((v.style.fontSize = 40 * (a / 640) + "px"),
+              document.body &&
+                (document.body.style.fontSize = v.style.fontSize));
+          };
+        w(),
+          a.addEventListener &&
+            (c.addEventListener(y, w, !1),
+            a.addEventListener("DOMContentLoaded", w, !1));
+      })(document, window);
+      seajs.use("static/mobile/sharePage/normalRoom/js/index"),
+        /MicroMessenger/.test(ua) &&
+          document.addEventListener(
+            "WeixinJSBridgeReady",
+            function() {
+              var a = document.getElementById("videoPlayer");
+              a.paused && a.play();
+            },
+            !1
+          );
+      var _hmt = _hmt || [];
+      !(function() {
+        var a = document.createElement("script");
+        a.src = "//hm.baidu.com/hm.js?223ff318b2fc04ca038db9c8f94e9333";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(a, s);
+      })();
+    </script>
+    <script>
+      (function(doc) {
+        doc
+          .getElementsByTagName("html")[0]
+          .appendChild(doc.createComment("kugouend"));
+      })(document);
+    </script>
+    <!--kugouend-->
+  </body>
+  <script>
+    window["HIJACKED_LIST"] = ["qzonestyle.gtimg.cn/"];
+  </script>
+  <script src="https://staticssl.kugou.com/common/js/min/hijacked-min.js"></script>
+</html>
